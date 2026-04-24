@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { removeTodo, toggleTodo } from '../features/todos/todoSlice';
+import { removeTodo, toggleTodo, editTodo } from '../features/todos/todoSlice';
 
 export default function TodoList() {
   const todos = useSelector((state) => state.todos.tasks);
@@ -21,6 +21,17 @@ export default function TodoList() {
               className="text-red-500 hover:text-red-700"
             >
               Delete
+            </button>
+            <button 
+              onClick={() => {
+                const newText = prompt('Edit your task:', todo.text);
+                if (newText !== null) {
+                  dispatch(editTodo({ id: todo.id, newText }));
+                }
+              }}
+              className="text-blue-500 hover:text-blue-700"
+            >
+              Edit
             </button>
           </li>
         ))}
